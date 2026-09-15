@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fffaf7">
+
+<title>One Last Choice</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    color:#332c2c;
+    background:#fffaf7;
+    overflow:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-10;
+    background:
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,190,205,.32),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(255,220,170,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fffdfb,
+            #fff8f5
+        );
+}
+
+.background::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.25;
+
+    background-image:
+        radial-gradient(
+            rgba(160,120,120,.15) 1px,
+            transparent 1px
+        );
+
+    background-size:35px 35px;
+}
+
+/* =========================
+   PAGE SYSTEM
+========================= */
+
+.page{
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:25px;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:scale(.97);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease,
+        visibility .8s;
+}
+
+.page.active{
+    opacity:1;
+    visibility:visible;
+    transform:scale(1);
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.intro{
+    width:min(700px,100%);
+    text-align:center;
+}
+
+.label{
+    font-size:10px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    color:#a58f8f;
+    margin-bottom:25px;
+}
+
+.intro h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(58px,12vw,105px);
+    line-height:.85;
+    font-weight:500;
+    color:#302727;
+}
+
+.intro h1 span{
+    display:block;
+    font-style:italic;
+    color:#c77991;
+}
+
+.intro p{
+    margin:30px auto 0;
+    max-width:480px;
+    font-size:13px;
+    line-height:2;
+    color:#8e7e7e;
+}
+
+.start-btn{
+    margin-top:40px;
+
+    border:none;
+    background:#302727;
+    color:white;
+
+    padding:15px 34px;
+
+    border-radius:50px;
+
+    font-size:10px;
+    letter-spacing:3px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 35px rgba(60,40,40,.15);
+
+    transition:.4s;
+}
+
+.start-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:
+        0 20px 40px rgba(60,40,40,.2);
+}
+
+/* =========================
+   CHOICE
+========================= */
+
+.choice-box{
+    width:min(850px,100%);
+    text-align:center;
+}
+
+.choice-box h2{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    font-size:clamp(42px,8vw,70px);
+    line-height:1;
+    color:#302727;
+}
+
+.choice-description{
+    margin-top:18px;
+    color:#988888;
+    font-size:13px;
+}
+
+.buttons-area{
+
+    position:relative;
+
+    margin:50px auto 0;
+
+    width:min(700px,100%);
+    min-height:230px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:25px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.choice-btn{
+
+    width:220px;
+    min-height:70px;
+
+    border-radius:50px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:12px;
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.keep-btn{
+
+    border:none;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d7839b,
+            #b96680
+        );
+
+    box-shadow:
+        0 15px 35px rgba(190,100,130,.25);
+}
+
+.keep-btn:hover{
+
+    transform:translateY(-5px) scale(1.03);
+
+    box-shadow:
+        0 20px 45px rgba(190,100,130,.35);
+}
+
+.delete-btn{
+
+    border:1px solid #ded2d2;
+
+    color:#665858;
+
+    background:rgba(255,255,255,.8);
+
+    position:relative;
+
+    z-index:20;
+}
+
+.delete-btn:hover{
+
+    background:#fff;
+
+}
+
+/* =========================
+   MEMORY PAGE
+========================= */
+
+.memory-wrapper{
+
+    width:min(850px,100%);
+    text-align:center;
+}
+
+.memory-count{
+
+    font-size:10px;
+    letter-spacing:4px;
+    color:#a69595;
+
+    margin-bottom:18px;
+}
+
+.photo-container{
+
+    position:relative;
+
+    width:min(380px,82vw);
+    height:min(500px,62vh);
+
+    margin:auto;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:#eee;
+
+    box-shadow:
+        0 25px 70px rgba(80,50,50,.18);
+
+}
+
+.photo-container img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transform:scale(1.08);
+
+    transition:
+        opacity 1s ease,
+        transform 6s ease;
+}
+
+.photo-container img.visible{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+.photo-overlay{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 55%,
+            rgba(30,20,20,.18)
+        );
+}
+
+.quote{
+
+    margin:25px auto 0;
+
+    max-width:600px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(24px,5vw,36px);
+
+    line-height:1.15;
+
+    font-style:italic;
+
+    color:#443838;
+
+    opacity:0;
+
+    transform:translateY(15px);
+
+    transition:1s ease;
+}
+
+.quote.visible{
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+.next-btn{
+
+    margin-top:20px;
+
+    padding:11px 25px;
+
+    border-radius:30px;
+
+    background:white;
+
+    border:1px solid #ddd0d0;
+
+    color:#6d5c5c;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.next-btn:hover{
+
+    background:#f8eeee;
+
+    transform:translateY(-2px);
+
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-content{
+
+    width:min(700px,100%);
+    text-align:center;
+}
+
+.final-heart{
+
+    font-size:65px;
+
+    color:#ce7f97;
+
+    animation:
+        heartbeat 1.8s infinite;
+}
+
+@keyframes heartbeat{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    15%{
+        transform:scale(1.15);
+    }
+
+    30%{
+        transform:scale(1);
+    }
+
+    45%{
+        transform:scale(1.08);
+    }
+}
+
+.final-content h2{
+
+    margin-top:20px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:clamp(45px,8vw,75px);
+
+    font-weight:500;
+
+    line-height:.95;
+
+    color:#302727;
+}
+
+.final-content h2 span{
+
+    display:block;
+
+    color:#c77891;
+
+    font-style:italic;
+}
+
+.final-content p{
+
+    margin:28px auto;
+
+    max-width:520px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:22px;
+
+    line-height:1.5;
+
+    color:#7c6c6c;
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.floating{
+
+    position:fixed;
+
+    pointer-events:none;
+
+    z-index:100;
+
+    font-size:15px;
+
+    color:#d4879d;
+
+    animation:
+        floatUp linear forwards;
+}
+
+@keyframes floatUp{
+
+    0%{
+        opacity:0;
+        transform:
+            translateY(20px)
+            scale(.5)
+            rotate(0deg);
+    }
+
+    15%{
+        opacity:.8;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translateY(-100vh)
+            scale(1.2)
+            rotate(180deg);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:650px){
+
+    .buttons-area{
+
+        min-height:250px;
+
+        display:block;
+
+    }
+
+    .choice-btn{
+
+        width:210px;
+
+        position:absolute;
+
+        left:50%;
+
+        transform:translateX(-50%);
+
+    }
+
+    .keep-btn{
+
+        top:20px;
+
+    }
+
+    .delete-btn{
+
+        top:120px;
+
+    }
+
+    .delete-btn:hover{
+
+        transform:none;
+
+    }
+
+    .photo-container{
+
+        height:57vh;
+
+    }
+
+    .intro h1{
+
+        font-size:60px;
+
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section id="intro" class="page active">
+
+    <div class="intro">
+
+        <div class="label">
+            One Last Choice
+        </div>
+
+        <h1>
+            Our story
+            <span>needs a choice.</span>
+        </h1>
+
+        <p>
+            Before making a decision,
+            maybe we should remember
+            the little moments that once
+            meant everything.
+        </p>
+
+        <button
+            class="start-btn"
+            onclick="openChoice()"
+        >
+            BEGIN
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CHOICE
+===================================================== -->
+
+<section id="choice" class="page">
+
+    <div class="choice-box">
+
+        <div class="label">
+            One Last Question
+        </div>
+
+        <h2>
+            What should happen<br>
+            to our memories?
+        </h2>
+
+        <p class="choice-description">
+            Choose what your heart truly wants.
+        </p>
+
+
+        <div
+            class="buttons-area"
+            id="buttonsArea"
+        >
+
+            <button
+                class="choice-btn keep-btn"
+                onclick="keepLove()"
+            >
+                ♡ &nbsp; Keep Our Love
+            </button>
+
+
+            <button
+                class="choice-btn delete-btn"
+                id="deleteBtn"
+            >
+                ✦ &nbsp; Delete Memory
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MEMORY
+===================================================== -->
+
+<section id="memory" class="page">
+
+    <div class="memory-wrapper">
+
+        <div
+            class="memory-count"
+            id="memoryCount"
+        >
+            MEMORY 01 / 05
+        </div>
+
+
+        <div class="photo-container">
+
+            <img
+                id="memoryImage"
+                src="1.jpg"
+                alt="Memory"
+            >
+
+            <div class="photo-overlay"></div>
+
+        </div>
+
+
+        <div
+            class="quote"
+            id="memoryQuote"
+        >
+            Some moments are too beautiful to forget.
+        </div>
+
+
+        <button
+            class="next-btn"
+            id="nextBtn"
+            onclick="nextMemory()"
+        >
+            NEXT MEMORY
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL
+===================================================== -->
+
+<section id="final" class="page">
+
+    <div class="final-content">
+
+        <div class="final-heart">
+            ♡
+        </div>
+
+        <h2>
+            Maybe...
+            <span>we can choose again.</span>
+        </h2>
+
+        <p>
+            Maybe love doesn't need a perfect story.
+            Maybe sometimes, two people simply need
+            the courage to begin again.
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =====================================================
+   MEMORIES
+===================================================== */
+
+const memories = [
+
+    {
+        image:"1.jpg",
+        quote:"Some moments are too beautiful to forget."
+    },
+
+    {
+        image:"2.jpg",
+        quote:"The smallest moments became our favourite memories."
+    },
+
+    {
+        image:"3.jpg",
+        quote:"For a while, you were my favourite part of every day."
+    },
+
+    {
+        image:"4.jpg",
+        quote:"Time passed, but some feelings never really disappeared."
+    },
+
+    {
+        image:"5.jpg",
+        quote:"Maybe our story deserves one more chance."
+    }
+
+];
+
+let currentMemory = 0;
+
+
+/* =====================================================
+   PAGE CHANGE
+===================================================== */
+
+function showPage(id){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove("active");
+
+        });
+
+    setTimeout(() => {
+
+        document
+            .getElementById(id)
+            .classList.add("active");
+
+    },100);
+
+}
+
+
+/* =====================================================
+   INTRO → CHOICE
+===================================================== */
+
+function openChoice(){
+
+    showPage("choice");
+
+    createHearts(15);
+
+}
+
+
+/* =====================================================
+   KEEP LOVE
+===================================================== */
+
+function keepLove(){
+
+    currentMemory = 0;
+
+    createHearts(50);
+
+    showPage("memory");
+
+    setTimeout(() => {
+
+        loadMemory();
+
+    },700);
+
+}
+
+
+/* =====================================================
+   LOAD MEMORY
+===================================================== */
+
+function loadMemory(){
+
+    const image =
+        document.getElementById("memoryImage");
+
+    const quote =
+        document.getElementById("memoryQuote");
+
+    const count =
+        document.getElementById("memoryCount");
+
+    const next =
+        document.getElementById("nextBtn");
+
+
+    image.classList.remove("visible");
+
+    quote.classList.remove("visible");
+
+
+    setTimeout(() => {
+
+        image.src =
+            memories[currentMemory].image;
+
+
+        image.onload = () => {
+
+            image.classList.add("visible");
+
+        };
+
+
+        count.innerText =
+            "MEMORY " +
+            String(currentMemory + 1).padStart(2,"0") +
+            " / 05";
+
+
+        quote.innerText =
+            memories[currentMemory].quote;
+
+
+        setTimeout(() => {
+
+            quote.classList.add("visible");
+
+        },500);
+
+
+    },400);
+
+
+    if(
+        currentMemory ===
+        memories.length - 1
+    ){
+
+        next.innerText =
+            "ONE LAST MOMENT";
+
+    }
+    else{
+
+        next.innerText =
+            "NEXT MEMORY";
+
+    }
+
+}
+
+
+/* =====================================================
+   NEXT MEMORY
+===================================================== */
+
+function nextMemory(){
+
+    if(
+        currentMemory <
+        memories.length - 1
+    ){
+
+        currentMemory++;
+
+        loadMemory();
+
+        createHearts(10);
+
+    }
+    else{
+
+        createHearts(70);
+
+        showPage("final");
+
+    }
+
+}
+
+
+/* =====================================================
+   ESCAPE DELETE BUTTON
+===================================================== */
+
+const deleteBtn =
+    document.getElementById("deleteBtn");
+
+const buttonsArea =
+    document.getElementById("buttonsArea");
+
+
+deleteBtn.addEventListener(
+    "click",
+    escapeDelete
+);
+
+
+/*
+   The button never performs delete.
+   Instead it moves to another position.
+*/
+
+function escapeDelete(){
+
+    const areaRect =
+        buttonsArea.getBoundingClientRect();
+
+    const btnRect =
+        deleteBtn.getBoundingClientRect();
+
+
+    const maxX =
+        areaRect.width -
+        btnRect.width;
+
+    const maxY =
+        areaRect.height -
+        btnRect.height;
+
+
+    let randomX =
+        Math.random() * maxX;
+
+    let randomY =
+        Math.random() * maxY;
+
+
+    /*
+       Make sure it moves
+       noticeably away from
+       the current position.
+    */
+
+    const currentX =
+        deleteBtn.offsetLeft;
+
+    const currentY =
+        deleteBtn.offsetTop;
+
+
+    if(
+        Math.abs(randomX - currentX) < 80
+    ){
+
+        randomX =
+            Math.min(
+                maxX,
+                randomX + 120
+            );
+
+    }
+
+
+    if(
+        Math.abs(randomY - currentY) < 60
+    ){
+
+        randomY =
+            Math.min(
+                maxY,
+                randomY + 90
+            );
+
+    }
+
+
+    deleteBtn.style.position =
+        "absolute";
+
+
+    deleteBtn.style.left =
+        randomX + "px";
+
+
+    deleteBtn.style.top =
+        randomY + "px";
+
+
+    deleteBtn.style.transform =
+        "scale(.92)";
+
+
+    setTimeout(() => {
+
+        deleteBtn.style.transform =
+            "scale(1)";
+
+    },250);
+
+
+    createHearts(8);
+
+}
+
+
+/* =====================================================
+   TOUCH SUPPORT
+===================================================== */
+
+deleteBtn.addEventListener(
+    "touchstart",
+    function(event){
+
+        event.preventDefault();
+
+        escapeDelete();
+
+    },
+    {
+        passive:false
+    }
+);
+
+
+/* =====================================================
+   FLOATING HEARTS
+===================================================== */
+
+function createHearts(amount){
+
+    for(
+        let i = 0;
+        i < amount;
+        i++
+    ){
+
+        setTimeout(() => {
+
+            const heart =
+                document.createElement("div");
+
+
+            heart.className =
+                "floating";
+
+
+            heart.innerText =
+                Math.random() > .5
+                ? "♡"
+                : "✦";
+
+
+            heart.style.left =
+                Math.random() * 100 +
+                "vw";
+
+
+            heart.style.top =
+                (75 + Math.random() * 25) +
+                "vh";
+
+
+            heart.style.animationDuration =
+                (4 + Math.random() * 5) +
+                "s";
+
+
+            heart.style.fontSize =
+                (10 + Math.random() * 18) +
+                "px";
+
+
+            document.body.appendChild(heart);
+
+
+            setTimeout(() => {
+
+                heart.remove();
+
+            },9000);
+
+
+        },i * 70);
+
+    }
+
+}
+
+
+/* =====================================================
+   PRELOAD PHOTOS
+===================================================== */
+
+memories.forEach(memory => {
+
+    const image =
+        new Image();
+
+    image.src =
+        memory.image;
+
+});
+
+</script>
+
+</body>
+</html>
